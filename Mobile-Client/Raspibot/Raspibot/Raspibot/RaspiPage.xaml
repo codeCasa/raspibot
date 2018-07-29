@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Raspibot.RaspiPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+            <WebView x:Name="PiView" 
+                     VerticalOptions="StartAndExpand"
+                     HorizontalOptions="FillAndExpand"/>
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="End">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.333*"/>
+                    <RowDefinition Height="0.333*"/>
+                    <RowDefinition Height="0.333*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="up.png"></Image>
+                <Image Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Source="down.png"></Image>
+                <Image Grid.Row="1" Grid.Column="0" Source="left.png"></Image>
+                <Image Grid.Row="1" Grid.Column="1"  Source="right.png"></Image>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

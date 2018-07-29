@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Raspibot.MainPage">
+    <StackLayout
+        Orientation="Vertical"
+        VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand">
+        <Image VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Source="raspberry.png"/>
+        <StackLayout
+            Orientation="Vertical"
+            VerticalOptions="End"
+            HorizontalOptions="FillAndExpand">
+            <Button HorizontalOptions="FillAndExpand" Text="Connect" x:Name="ConnectButton" Clicked="ConnectButton_OnClicked"/>
+            <Button HorizontalOptions="FillAndExpand" Text="Help" x:Name="HelpButton" Clicked="HelpButton_OnClicked"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
