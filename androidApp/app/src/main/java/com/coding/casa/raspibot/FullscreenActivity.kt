@@ -21,7 +21,6 @@ import java.net.Socket
 class FullscreenActivity : AppCompatActivity(), JoystickView.OnMoveListener {
     private var botSocket: Socket? = null
     private var outputStreamWriter: DataOutputStream? = null
-    private var inputStreamReader: DataInputStream? = null
     private val hideHandler = Handler()
 
     private var isFullscreen: Boolean = false
@@ -38,13 +37,7 @@ class FullscreenActivity : AppCompatActivity(), JoystickView.OnMoveListener {
         isFullscreen = true
         val runnable = Runnable {
             botSocket = Socket()
-            try {
-                botSocket!!.connect(InetSocketAddress("192.168.86.169", 9000), 60)
-                outputStreamWriter = DataOutputStream(botSocket!!.getOutputStream())
-                inputStreamReader = DataInputStream(botSocket!!.getInputStream())
-            }catch (e: Exception){
-
-            }
+            connect()
         }
         Thread(runnable).start()
         piBotView.mode = MjpegView.MODE_FIT_WIDTH
@@ -54,10 +47,23 @@ class FullscreenActivity : AppCompatActivity(), JoystickView.OnMoveListener {
         joystick.setOnMoveListener(this)
     }
 
+    private fun connect() {
+        do {
+            try {
+                botSocket!!.connect(InetSocketAddress("192.168.86.169", 9000), 60)
+                outputStreamWriter = DataOutputStream(botSocket!!.getOutputStream())
+            }catch (e: Exception){
+                print(e.message)
+            }
+        }while (!botSocket!!.isConnected || outputStreamWriter == null)
+    }
     private fun sendMessage(message: String) {
         Thread {
-            outputStreamWriter?.writeBytes("$message\n")
-            outputStreamWriter?.flush()
+            if(!botSocket!!.isConnected || outputStreamWriter == null){
+                connect()
+            }
+            outputStreamWriter!!.writeBytes("$message\n")
+            outputStreamWriter!!.flush()
         }.start()
     }
 
@@ -78,12 +84,33 @@ class FullscreenActivity : AppCompatActivity(), JoystickView.OnMoveListener {
         hideHandler.postDelayed(hideRunnable, delayMillis.toLong())
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(botSocket == null) {
+            Thread{
+                botSocket = Socket()
+                connect()
+            }.start()
+        }
+        piBotView.mode = MjpegView.MODE_FIT_WIDTH
+        piBotView.isAdjustHeight = true
+        piBotView.setUrl("http://192.168.86.169:8000/stream.mjpg")
+        piBotView.startStream()
+    }
     override fun onDestroy() {
         sendMessage("disconnect")
-        inputStreamReader?.close()
         outputStreamWriter?.close()
         botSocket?.close()
+        botSocket = null
         super.onDestroy()
+    }
+
+    override fun onPause() {
+        sendMessage("disconnect")
+        outputStreamWriter?.close()
+        botSocket?.close()
+        botSocket = null
+        super.onPause()
     }
 
     companion object {
@@ -107,7 +134,7 @@ class FullscreenActivity : AppCompatActivity(), JoystickView.OnMoveListener {
     }
 
     override fun onMove(angle: Int, strength: Int) {
-        if(strength <= 10){
+        if(strength <= 20){
             sendMessage("stop")
         }
         if(angle in 0..180){
