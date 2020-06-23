@@ -1,0 +1,17 @@
+from PyBot import PyBot
+
+bot = PyBot()
+bot.forward()
+bot.forward()
+bot.forward()
+bot.left()
+bot.left()
+bot.left()
+bot.left()
+bot.backward()
+bot.backward()
+bot.right()
+bot.right()
+bot.right()
+bot.right()
+bot.shutdown()
