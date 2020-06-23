@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:stream="http://schemas.android.com/apk/res-auto"
+    android:background="#0099cc"
+    tools:context=".FullscreenActivity">
+
+    <com.longdo.mjpegviewer.MjpegView
+        android:id="@+id/piBotView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/joystick"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        custom:JV_buttonColor="#FF6E40"
+        custom:JV_buttonSizeRatio="15%"
+        custom:JV_borderColor="#00796B"
+        custom:JV_backgroundColor="#009688"
+        custom:JV_borderWidth="4dp"
+        android:layout_gravity="bottom|end"
+        custom:JV_fixedCenter="false"/>
+</FrameLayout>
