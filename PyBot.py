@@ -36,7 +36,6 @@ class PyBot:
 		GPIO.setup(PyBot.RightRearA,GPIO.OUT)
 		GPIO.setup(PyBot.RightRearB,GPIO.OUT)
 		GPIO.setup(PyBot.RightRearE,GPIO.OUT)
-		self.stop()
 
 	def forward(self):
 		GPIO.output(PyBot.LeftFrontA,GPIO.HIGH)
@@ -54,8 +53,6 @@ class PyBot:
 		GPIO.output(PyBot.RightRearA,GPIO.HIGH)
 		GPIO.output(PyBot.RightRearB,GPIO.LOW)
 		GPIO.output(PyBot.RightRearE,GPIO.HIGH)
-		sleep(2)
-		self.stop()
 
 	def backward(self):
 		GPIO.output(PyBot.LeftFrontA,GPIO.LOW)
@@ -73,8 +70,6 @@ class PyBot:
 		GPIO.output(PyBot.RightRearA,GPIO.LOW)
 		GPIO.output(PyBot.RightRearB,GPIO.HIGH)
 		GPIO.output(PyBot.RightRearE,GPIO.HIGH)
-		sleep(2)
-		self.stop()
 	
 	def right(self):
 		GPIO.output(PyBot.LeftFrontA,GPIO.HIGH)
@@ -93,8 +88,6 @@ class PyBot:
 		GPIO.output(PyBot.RightRearA,GPIO.LOW)
 		GPIO.output(PyBot.RightRearB,GPIO.HIGH)
 		GPIO.output(PyBot.RightRearE,GPIO.HIGH)
-		sleep(2)
-		self.stop()
 
 	def left(self):
 		GPIO.output(PyBot.LeftFrontA,GPIO.LOW)
@@ -112,8 +105,6 @@ class PyBot:
 		GPIO.output(PyBot.RightRearA,GPIO.HIGH)
 		GPIO.output(PyBot.RightRearB,GPIO.LOW)
 		GPIO.output(PyBot.RightRearE,GPIO.HIGH)
-		sleep(2)
-		self.stop()
 	
 	def stop(self):
 		GPIO.output(PyBot.LeftFrontE,GPIO.LOW)
